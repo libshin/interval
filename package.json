@@ -1,0 +1,30 @@
+{
+  "name": "@libshin/interval",
+  "version": "1.0.0",
+  "description": "Create flexible intervals",
+  "source": "index.js",
+  "umd:main": "build/interval.umd.js",
+  "main": "build/interval.js",
+  "module": "build/interval.m.js",
+  "keywords": [
+    "javascript",
+    "interval",
+    "timer",
+    "flexible",
+    "lightweight"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:libshin/interval.git"
+  },
+  "author": "ayc0 (https://ayc0.github.io/stuff/)",
+  "license": "MIT",
+  "scripts": {
+    "start": "microbundle watch",
+    "build": "microbundle",
+    "release": "yarn -s build && npm publish --access public"
+  },
+  "devDependencies": {
+    "microbundle": "^0.4.4"
+  }
+}

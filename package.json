@@ -1,6 +1,6 @@
 {
   "name": "@libshin/interval",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Create flexible intervals",
   "source": "index.js",
   "umd:main": "build/interval.umd.js",

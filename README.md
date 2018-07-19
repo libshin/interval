@@ -61,3 +61,10 @@ timer.start(1500)
 > "fn is called" // after 500ms
 ...
 ```
+
+## Options
+
+| Field          | Value             | Default         | Description                                                                  |
+| -------------- | ----------------- | --------------- | ---------------------------------------------------------------------------- |
+| `ignoreErrors` | `true` or `false` | `true`          | If function `fn` fails, and `ignoreErrors` is set to `true`, calls `errorCb` |
+| `errorCb`      | `error => void`   | `console.error` | Function that is called when function `fn` fails                             |

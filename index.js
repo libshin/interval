@@ -13,6 +13,7 @@ class Timeout {
 
 const defaultOptions = {
   ignoreErrors: true
+  errorCb: console.error
 };
 
 const interval = (fn, initialTTL, options = defaultOptions, output = {}) => {
@@ -26,7 +27,7 @@ const interval = (fn, initialTTL, options = defaultOptions, output = {}) => {
         TTL = await Promise.resolve(fn());
       } catch (error) {
         if (options.ignoreErrors) {
-          console.error(error);
+          output.errorCb(error);
           TTL = initialTTL;
         } else {
           throw error;

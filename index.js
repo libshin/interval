@@ -23,7 +23,7 @@ const interval = (fn, initialTTL, options = defaultOptions, output = {}) => {
         if (timeout.cleared) {
           return;
         }
-        TTL = await fn();
+        TTL = await Promise.resolve(fn());
       } catch (error) {
         if (options.ignoreErrors) {
           console.error(error);

@@ -1,8 +1,8 @@
 class Timeout {
   constructor(fn, interval) {
-    this.id = setTimeout(fn, interval);
     this.cleared = false;
     this.clear = this.clear.bind(this);
+    this.id = setTimeout(fn, interval);
   }
 
   clear() {
@@ -12,7 +12,7 @@ class Timeout {
 }
 
 const defaultOptions = {
-  ignoreErrors: true
+  ignoreErrors: true,
   errorCb: console.error
 };
 
@@ -27,7 +27,7 @@ const interval = (fn, initialTTL, options = defaultOptions, output = {}) => {
         TTL = await Promise.resolve(fn());
       } catch (error) {
         if (options.ignoreErrors) {
-          output.errorCb(error);
+          options.errorCb(error);
           TTL = initialTTL;
         } else {
           throw error;
@@ -42,10 +42,13 @@ const interval = (fn, initialTTL, options = defaultOptions, output = {}) => {
     return timeout;
   };
 
-  const getOutput = timeout => {
+  const getOutput = outputTTL => {
+    const timeout = outputTTL === null ? null : getTimeout(outputTTL);
     const stop = () => {
       if (timeout) {
         timeout.clear();
+      } else {
+        output.stop();
       }
     };
     return {
@@ -53,26 +56,25 @@ const interval = (fn, initialTTL, options = defaultOptions, output = {}) => {
         if (timeout && !timeout.cleared) {
           throw new Error("Interval is already started");
         }
-        const newOutput = getOutput(getTimeout(ttl || initialTTL));
-        Object.assign(output, getOutput(newOutput));
+        Object.assign(output, getOutput(ttl || initialTTL));
         return output;
       },
       startNow: () => {
         if (timeout && !timeout.cleared) {
           throw new Error("Interval is already started");
         }
-        Object.assign(output, getOutput(getTimeout(0)));
+        Object.assign(output, getOutput(0));
         return output;
       },
       stop,
       restart: ttl => {
         stop();
-        Object.assign(output, getOutput(getTimeout(ttl || initialTTL)));
+        Object.assign(output, getOutput(ttl || initialTTL));
         return output;
       },
       restartNow: () => {
         stop();
-        Object.assign(output, getOutput(getTimeout(0)));
+        Object.assign(output, getOutput(0));
         return output;
       }
     };
@@ -81,7 +83,7 @@ const interval = (fn, initialTTL, options = defaultOptions, output = {}) => {
   if (Object.keys(output).length === 0) {
     Object.assign(output, getOutput(null));
   } else {
-    Object.assign(output, getOutput(getTimeout(initialTTL)));
+    Object.assign(output, getOutput(initialTTL));
   }
   return output;
 };

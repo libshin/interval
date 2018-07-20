@@ -64,7 +64,7 @@ timer.start(1500)
 
 ## Options
 
-| Field          | Value             | Default         | Description                                                                  |
-| -------------- | ----------------- | --------------- | ---------------------------------------------------------------------------- |
-| `ignoreErrors` | `true` or `false` | `true`          | If function `fn` fails, and `ignoreErrors` is set to `true`, calls `errorCb` |
-| `errorCb`      | `error => void`   | `console.error` | Function that is called when function `fn` fails                             |
+| Field          | Value           | Default         | Description                                                                                      |
+| -------------- | --------------- | --------------- | ------------------------------------------------------------------------------------------------ |
+| `ignoreErrors` | `boolean`       | `true`          | If set to `true`, when the function `fn` fails, the timer will continue, otherwise, it will stop |
+| `errorCb`      | `error => void` | `console.error` | Function that is called when function `fn` fails if `ignoreErrors` is set to `true`              |

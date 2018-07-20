@@ -26,6 +26,8 @@
     "release": "yarn -s build && npm publish --access public"
   },
   "devDependencies": {
-    "microbundle": "^0.4.4"
+    "chai": "^4.1.2",
+    "microbundle": "^0.6.0",
+    "mocha": "^5.2.0"
   }
 }
